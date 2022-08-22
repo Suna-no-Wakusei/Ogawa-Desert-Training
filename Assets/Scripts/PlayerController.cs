@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private StaminaBar staminaBar;
     private bool isGrounded = false;
     private GameManager manager;
-
+    public GameObject moneda;
     void Awake()
     {
         manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     {
         manager.Km += Time.deltaTime;
         currentStamina -= Time.deltaTime;
+        staminaBar.SetStamina(currentStamina);
         if (isGrounded && (Input.touchCount > 0 || Input.GetButtonDown("Fire1")))
         {
             rb.AddForce(transform.up * jumpForce);

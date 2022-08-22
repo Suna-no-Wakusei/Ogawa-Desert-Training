@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 267658162733329897}
   - component: {fileID: 267658162733329896}
-  - component: {fileID: 267658162733329899}
   - component: {fileID: -1786154023718034534}
+  - component: {fileID: -1952844422960702399}
   m_Layer: 0
   m_Name: Moeda
   m_TagString: Coin
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 1157671842, guid: b97ca15e6fb7894408744709c112b52a, type: 3}
   m_Color: {r: 0.961683, g: 0.9622642, b: 0.503827, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,18 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &267658162733329899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 267658162733329898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 273408bce49d83345869d59ae337ea27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-1786154023718034534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,3 +98,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a025a0a8c09d4e44ba69937fec9ebfe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!111 &-1952844422960702399
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267658162733329898}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: d6e93d6e720d99949b9f5bd8b3fc3c9b, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: d6e93d6e720d99949b9f5bd8b3fc3c9b, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
