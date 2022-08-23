@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 267658162733329897}
   - component: {fileID: 267658162733329896}
   - component: {fileID: -1786154023718034534}
-  - component: {fileID: -1952844422960702399}
+  - component: {fileID: 7396798461238447523}
+  - component: {fileID: -4783747678222733736}
   m_Layer: 0
   m_Name: Moeda
   m_TagString: Coin
@@ -98,19 +99,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a025a0a8c09d4e44ba69937fec9ebfe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!111 &-1952844422960702399
-Animation:
+--- !u!95 &7396798461238447523
+Animator:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 267658162733329898}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: d6e93d6e720d99949b9f5bd8b3fc3c9b, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: d6e93d6e720d99949b9f5bd8b3fc3c9b, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-4783747678222733736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267658162733329898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a025a0a8c09d4e44ba69937fec9ebfe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
