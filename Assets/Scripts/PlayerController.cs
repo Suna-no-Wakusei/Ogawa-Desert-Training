@@ -76,9 +76,20 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.CompareTag("Coin"))
+        if(collision.gameObject.CompareTag("Coin"))
         {
             manager.CoinCount++;
+        }
+
+        if (collision.gameObject.CompareTag("Food"))
+        {
+            staminaBar.SetStamina(currentStamina + 5);
+            Destroy(collision.gameObject);
+        }
+
+        if(collision.gameObject.CompareTag("Spikes"))
+        {
+
         }
 
     }

@@ -33,4 +33,19 @@ public class FloorSpawner : MonoBehaviour
             
     }
 
+    //public gameobject[] chao;
+    //private int rand
+    //private int lastSpawn
+    //if(rand <= chao.Length && ParteLivre())
+    //  instantiate(chao[rand], transform.position + offset, transform.rotation);
+    //  lasSpawn = rand
+    //else
+    //  lastSpawn = 0;
+    //bool ParteLivre()
+    //  if(lastSpawn == {[(set especifico de prefabs que impedem sussies)]})
+    //      falseascfjuaishyiashvyahyih amimir
+
+
+
+
 }
