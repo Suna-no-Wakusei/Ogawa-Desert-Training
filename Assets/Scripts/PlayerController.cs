@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,9 +14,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Collider2D colGround;
     [SerializeField] private Collider2D colTotal;
     [SerializeField] private StaminaBar staminaBar;
+    [SerializeField] private GameObject HUD;
+    [SerializeField] private GameObject morte;
+    [SerializeField] private TextMeshProUGUI countCoin;
+    [SerializeField] private TextMeshProUGUI countKm;
+    private float coyoteTime = 0.2f;
+    private float coyoteTimeCounter;
+    private float jumpBufferTime = 0.2f;
+    private float jumpBufferCounter;
     private bool isGrounded = false;
     private GameManager manager;
-    public GameObject moneda;
     void Awake()
     {
         manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
@@ -55,14 +64,61 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        manager.Km += Time.deltaTime;
+        if (!manager.IsOkToMove) return;
+        manager.Km += Time.deltaTime*2;
+        countKm.SetText(Convert.ToInt32(manager.Km).ToString());
         currentStamina -= Time.deltaTime;
         staminaBar.SetStamina(currentStamina);
-        if (isGrounded && (Input.touchCount > 0 || Input.GetButtonDown("Fire1")))
+        if (isGrounded)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
+        if ((Input.touchCount > 0 || Input.GetButtonDown("Fire1")))
+        {
+            jumpBufferCounter = jumpBufferTime;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+        if (coyoteTimeCounter > 0f && jumpBufferCounter>0f)
         {
             rb.AddForce(transform.up * jumpForce);
             isGrounded = false;
+            coyoteTimeCounter = 0f;
+            jumpBufferCounter = 0f;
         }
+        if (currentStamina <= 0)
+        {
+            Die();
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if(collision.gameObject.CompareTag("Coin"))
+        {
+            manager.CoinCount++;
+            countCoin.SetText(manager.CoinCount.ToString());
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Food"))
+        {
+            currentStamina += 5;
+            staminaBar.SetStamina(currentStamina + 5);
+            if (currentStamina > maxStamina)
+            {
+                currentStamina = maxStamina;
+            }
+            Destroy(collision.gameObject);
+        }
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -76,21 +132,19 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(collision.gameObject.CompareTag("Coin"))
+        if(collision.gameObject.CompareTag("Spike"))
         {
-            manager.CoinCount++;
-        }
-
-        if (collision.gameObject.CompareTag("Food"))
-        {
-            staminaBar.SetStamina(currentStamina + 5);
-            Destroy(collision.gameObject);
-        }
-
-        if(collision.gameObject.CompareTag("Spikes"))
-        {
-
+            Die();
         }
 
     }
+
+    void Die()
+    {
+        manager.IsOkToMove = false;
+        Time.timeScale = 0f;
+        HUD.SetActive(false);
+        morte.SetActive(true);
+    }
+
 }

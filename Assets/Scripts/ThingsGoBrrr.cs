@@ -14,6 +14,7 @@ public class ThingsGoBrrr : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!manager.IsOkToMove) return;
         transform.position = transform.position + new Vector3(movespeed, 0, 0);
         if (transform.position.x <= -32f)
         {

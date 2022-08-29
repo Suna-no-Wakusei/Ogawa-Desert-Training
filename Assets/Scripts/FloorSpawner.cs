@@ -1,13 +1,14 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FloorSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject floor;
+    [SerializeField] private GameObject[] floor;//chaos
+    private int rand;
     private GameManager manager;
-    private float tempo = 3;
-    private Vector3 offset = new Vector3(0, 4.7875f, 0);
+    private float tempo = 2;
 
     void Awake()
     {
@@ -17,35 +18,21 @@ public class FloorSpawner : MonoBehaviour
     void Update()
     {
         tempo -= Time.deltaTime;
-        if (tempo <= 0 && manager.FloorsCena<5)
+        if (tempo <= 0&& manager.IsOkToMove)
         {
-            int rand = Random.Range(0, 3);
-            if (rand == 2)
-            {
-                Instantiate(floor, transform.position + offset, transform.rotation);
-                manager.FloorsCena++;
-                tempo = 3;
+            rand = Random.Range(0, floor.Length+3);
+            if (rand > floor.Length-1)
+            { 
+                tempo = 3; 
+                return;
             }
-            Instantiate(floor, transform.position, transform.rotation);
-            manager.FloorsCena++;
-            tempo = 3;
+            else
+            {
+                Instantiate(floor[rand], transform.position, transform.rotation);
+                tempo = 6;
+            }
         }
             
     }
-
-    //public gameobject[] chao;
-    //private int rand
-    //private int lastSpawn
-    //if(rand <= chao.Length && ParteLivre())
-    //  instantiate(chao[rand], transform.position + offset, transform.rotation);
-    //  lasSpawn = rand
-    //else
-    //  lastSpawn = 0;
-    //bool ParteLivre()
-    //  if(lastSpawn == {[(set especifico de prefabs que impedem sussies)]})
-    //      falseascfjuaishyiashvyahyih amimir
-
-
-
 
 }

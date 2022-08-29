@@ -5,33 +5,25 @@ using UnityEngine;
 public class ObstacleGen : MonoBehaviour
 {
 
-    [SerializeField] private GameObject espinho;
-    private float count = 2;
+    [SerializeField] private GameObject[] obstacle;//chaos
+    private int rand;
     private GameManager manager;
+    private float tempo = 2;
 
     void Awake()
     {
         manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
     }
-
-    void FixedUpdate()
+    
+    void Update()
     {
-        count -= Time.deltaTime;
-        if (manager.ObstaculosCena < 100 && count <= 0)
+        tempo -= Time.deltaTime;
+        if (tempo <= 0&& manager.IsOkToMove)
         {
-            StartCoroutine(Espinho());
-            count = 2;
+            rand = Random.Range(0, obstacle.Length);
+            Instantiate(obstacle[rand], transform.position, transform.rotation);
+            tempo = 6;
         }
-    }
-
-    IEnumerator Espinho()
-    {
-        int rand = Mathf.FloorToInt(Random.Range(0, 3));
-        for (int i = 0; i < rand; i++)
-        {
-            Instantiate(espinho, transform.position, transform.rotation);
-            manager.ObstaculosCena++;
-            yield return new WaitForSeconds(10f);
-        }
+            
     }
 }

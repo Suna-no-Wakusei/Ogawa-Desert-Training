@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     private float km;
     private int topKm;
     private int coinCount;
+    private int coinBag;
+    private bool isOkToMove = false;
 
     public int FloorsCena
     {
@@ -40,5 +42,15 @@ public class GameManager : MonoBehaviour
     {
         get { return coinCount; }
         set { coinCount = value; }
+    }
+    public int CoinBag
+    {
+        get { return coinBag; }
+        set { coinBag = value; }
+    }
+    public bool IsOkToMove
+    {
+        get { return isOkToMove; }
+        set { isOkToMove = value; }
     }
 }

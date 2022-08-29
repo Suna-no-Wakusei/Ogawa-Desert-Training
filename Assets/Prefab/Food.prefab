@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4579988527944125412}
   - component: {fileID: 4235296475828962345}
   - component: {fileID: 7857924854824019484}
+  - component: {fileID: 1238923072090453029}
+  - component: {fileID: 6046835376928130233}
   m_Layer: 0
   m_Name: Food
   m_TagString: Food
@@ -95,9 +97,39 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!114 &1238923072090453029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8895825623118996246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a025a0a8c09d4e44ba69937fec9ebfe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6046835376928130233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8895825623118996246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab230fd922ce1b14a808ae8a9ad84028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteFoods:
+  - {fileID: 21300000, guid: 4981178d3f42b1241b3cc062b6397868, type: 3}
+  - {fileID: 21300000, guid: 9efaba0165090f943897a38eebac658f, type: 3}
+  - {fileID: 21300000, guid: 5971932ef552a1e419124744c2178d35, type: 3}
+  - {fileID: 21300000, guid: 3335de5d4fb67604db77f36cb3080cfd, type: 3}
+  spriteRenderer: {fileID: 4235296475828962345}
