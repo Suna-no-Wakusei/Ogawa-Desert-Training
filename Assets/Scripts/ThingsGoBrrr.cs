@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ThingsGoBrrr : MonoBehaviour
 {
-    private float movespeed = -0.2f;
+    [SerializeField] private float moveSpeed = -0.2f;
     private GameManager manager;
 
     void Awake()
@@ -15,22 +15,6 @@ public class ThingsGoBrrr : MonoBehaviour
     void FixedUpdate()
     {
         if (!manager.IsOkToMove) return;
-        transform.position = transform.position + new Vector3(movespeed, 0, 0);
-        if (transform.position.x <= -32f)
-        {
-            Destroy(gameObject);
-            if (gameObject.CompareTag("Ground"))
-            {
-                manager.FloorsCena--;            
-            }
-            if (gameObject.CompareTag("Coin"))
-            {
-                manager.MoedasCena--;   
-            }
-            if (gameObject.CompareTag("Spike"))
-            {
-                manager.ObstaculosCena--;
-            }
-        }
+        transform.position = transform.position + new Vector3(moveSpeed, 0, 0);
     }
 }

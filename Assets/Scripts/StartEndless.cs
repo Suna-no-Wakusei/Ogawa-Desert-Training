@@ -6,6 +6,9 @@ public class StartEndless : MonoBehaviour
 {
     [SerializeField] private GameObject startMenu;
     [SerializeField] private GameObject HUD;
+    [SerializeField] private GameObject KmCount;
+    [SerializeField] private GameObject CoinCount;
+    [SerializeField] private GameObject CoinMoment;
     private GameManager manager;
     void Awake()
     {
@@ -16,8 +19,10 @@ public class StartEndless : MonoBehaviour
     {
         startMenu.SetActive(false);
         HUD.SetActive(true);
+        KmCount.SetActive(true);
+        CoinMoment.SetActive(false);
+        CoinCount.SetActive(true);
         manager.IsOkToMove = true;
-        Debug.Log(manager.IsOkToMove.ToString());
+        Time.timeScale = 1f;
     }
-
 }

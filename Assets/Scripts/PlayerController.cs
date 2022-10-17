@@ -18,11 +18,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject morte;
     [SerializeField] private TextMeshProUGUI countCoin;
     [SerializeField] private TextMeshProUGUI countKm;
+    [SerializeField] private TextMeshProUGUI topKm;
+    [SerializeField] private TextMeshProUGUI coinBag;
+    private int coinCount;
+    private float km;
     private float coyoteTime = 0.2f;
     private float coyoteTimeCounter;
     private float jumpBufferTime = 0.2f;
     private float jumpBufferCounter;
     private bool isGrounded = false;
+    private Vector3 startPos;
+    private bool fingerDown;
+    private int pixelDistToDetect = 10;
     private GameManager manager;
     void Awake()
     {
@@ -65,8 +72,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (!manager.IsOkToMove) return;
-        manager.Km += Time.deltaTime*2;
-        countKm.SetText(Convert.ToInt32(manager.Km).ToString());
+        km += Time.deltaTime * 2;
+        countKm.SetText(Convert.ToInt32(km).ToString());
         currentStamina -= Time.deltaTime;
         staminaBar.SetStamina(currentStamina);
         if (isGrounded)
@@ -77,7 +84,7 @@ public class PlayerController : MonoBehaviour
         {
             coyoteTimeCounter -= Time.deltaTime;
         }
-        if ((Input.touchCount > 0 || Input.GetButtonDown("Fire1")))
+        if (TouchSwipe() == 1)
         {
             jumpBufferCounter = jumpBufferTime;
         }
@@ -85,7 +92,7 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter -= Time.deltaTime;
         }
-        if (coyoteTimeCounter > 0f && jumpBufferCounter>0f)
+        if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f)
         {
             rb.AddForce(transform.up * jumpForce);
             isGrounded = false;
@@ -98,13 +105,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    int TouchSwipe()
+    {
+        if (!fingerDown && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+        {
+            startPos = Input.touches[0].position;
+            fingerDown = true;
+        }
+        if (fingerDown)
+        {
+            if (Input.touches[0].position.y >= startPos.y + pixelDistToDetect)
+            {
+                fingerDown = false;
+                return 1;
+            }
+            else if (Input.touches[0].position.y <= startPos.y - pixelDistToDetect)
+            {
+                fingerDown = false;
+                return -1;
+            }
+        }
+        return 0;
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if(collision.gameObject.CompareTag("Coin"))
+        if (collision.gameObject.CompareTag("Coin"))
         {
-            manager.CoinCount++;
-            countCoin.SetText(manager.CoinCount.ToString());
+            coinCount++;
+            countCoin.SetText(coinCount.ToString());
             Destroy(collision.gameObject);
         }
 
@@ -124,7 +154,7 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if(collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             if (!isGrounded && collision.otherCollider == colGround)
             {
@@ -132,7 +162,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(collision.gameObject.CompareTag("Spike"))
+        if (collision.gameObject.CompareTag("Spike"))
         {
             Die();
         }
@@ -141,6 +171,13 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
+
+        manager.CoinBag += coinCount;
+        coinCount = 0;
+        if (km > manager.TopKm)
+        {
+            manager.TopKm = Convert.ToInt32(km);
+        }
         manager.IsOkToMove = false;
         Time.timeScale = 0f;
         HUD.SetActive(false);
