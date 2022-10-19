@@ -30,11 +30,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 startPos;
     private bool fingerDown;
     private int pixelDistToDetect = 10;
-    private GameManager manager;
-    void Awake()
-    {
-        manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-    }
 
     void Start()
     {
@@ -71,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!manager.IsOkToMove) return;
+        if (!GameManager.instance.IsOkToMove) return;
         km += Time.deltaTime * 2;
         countKm.SetText(Convert.ToInt32(km).ToString());
         currentStamina -= Time.deltaTime;
@@ -172,13 +167,13 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
 
-        manager.CoinBag += coinCount;
+        GameManager.instance.CoinBag += coinCount;
         coinCount = 0;
-        if (km > manager.TopKm)
+        if (km > GameManager.instance.TopKm)
         {
-            manager.TopKm = Convert.ToInt32(km);
+            GameManager.instance.TopKm = Convert.ToInt32(km);
         }
-        manager.IsOkToMove = false;
+        GameManager.instance.IsOkToMove = false;
         Time.timeScale = 0f;
         HUD.SetActive(false);
         morte.SetActive(true);

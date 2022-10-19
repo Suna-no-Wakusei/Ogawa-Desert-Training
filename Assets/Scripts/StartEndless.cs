@@ -9,11 +9,6 @@ public class StartEndless : MonoBehaviour
     [SerializeField] private GameObject KmCount;
     [SerializeField] private GameObject CoinCount;
     [SerializeField] private GameObject CoinMoment;
-    private GameManager manager;
-    void Awake()
-    {
-        manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-    }
 
     public void Bora()
     {
@@ -22,7 +17,7 @@ public class StartEndless : MonoBehaviour
         KmCount.SetActive(true);
         CoinMoment.SetActive(false);
         CoinCount.SetActive(true);
-        manager.IsOkToMove = true;
+        GameManager.instance.IsOkToMove = true;
         Time.timeScale = 1f;
     }
 }

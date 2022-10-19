@@ -11,12 +11,6 @@ public class ParallaxEffect : MonoBehaviour
     private float textureUnitSizeX;
     private float camSize;
     private float spriteBound;
-    private GameManager manager;
-
-    void Awake()
-    {
-        manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-    }
 
     void Start()
     {
@@ -29,7 +23,7 @@ public class ParallaxEffect : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!manager.IsOkToMove) return;
+        if (!GameManager.instance.IsOkToMove) return;
         transform.position += new Vector3(-moveSpeed, 0);
         if (transform.position.x + spriteBound <= camPosX - camSize)
         {
