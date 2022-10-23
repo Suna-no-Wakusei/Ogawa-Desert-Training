@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2504052994964663188}
   - component: {fileID: 8870325323419311040}
   - component: {fileID: 2097690311469140631}
+  - component: {fileID: 7746844737908981836}
+  - component: {fileID: 8429840813304219419}
   m_Layer: 0
   m_Name: SpriteRuinsWalls
   m_TagString: Untagged
@@ -96,9 +98,9 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 0.12500095, y: 2.2415447}
+  m_Offset: {x: 0.12500095, y: 2.167323}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -109,8 +111,41 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.499876, y: 0.0169065}
+  m_Size: {x: 7.499876, y: 0.16534996}
   m_EdgeRadius: 0
+--- !u!251 &7746844737908981836
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908912663078936745}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 0
+--- !u!114 &8429840813304219419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908912663078936745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66fa1e097259a174fb4c04fed96b4d80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platEffect: {fileID: 7746844737908981836}
+  col: {fileID: 2097690311469140631}
 --- !u!1 &2653731416146895452
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,6 +156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2346719701678178007}
   - component: {fileID: 181771713010006086}
+  - component: {fileID: 7487608261929419476}
   m_Layer: 0
   m_Name: Ruins
   m_TagString: Untagged
@@ -157,7 +193,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a025a0a8c09d4e44ba69937fec9ebfe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: -0.2
+  moveSpeed: 0.2
+--- !u!114 &7487608261929419476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2653731416146895452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0da5688da02c58648b66c6d02cad4d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2778106870383407093
 GameObject:
   m_ObjectHideFlags: 0

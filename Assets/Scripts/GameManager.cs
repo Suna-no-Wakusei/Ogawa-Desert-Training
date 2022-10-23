@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance = new GameManager();
+    public static GameManager instance;
+
+    void Start()
+    {
+        instance = this;
+    }
+
     private int topKm;
     private int coinBag;
     public bool isOkToMove = false;

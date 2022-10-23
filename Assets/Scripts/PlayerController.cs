@@ -29,7 +29,9 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = false;
     private Vector3 startPos;
     private bool fingerDown;
-    private int pixelDistToDetect = 10;
+    private int pixelDistToDetect = 20;
+    private bool hasArmor;
+    private bool hasStamUp;
 
     void Start()
     {
@@ -79,9 +81,14 @@ public class PlayerController : MonoBehaviour
         {
             coyoteTimeCounter -= Time.deltaTime;
         }
-        if (TouchSwipe() == 1)
+        int pleum = TouchSwipe();
+        if (pleum == 1)
         {
             jumpBufferCounter = jumpBufferTime;
+        }
+        else if (pleum == 2)
+        {
+            rb.AddForce(-transform.up * jumpForce);
         }
         else
         {
@@ -117,7 +124,7 @@ public class PlayerController : MonoBehaviour
             else if (Input.touches[0].position.y <= startPos.y - pixelDistToDetect)
             {
                 fingerDown = false;
-                return -1;
+                return 2;
             }
         }
         return 0;
@@ -128,20 +135,45 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Coin"))
         {
-            coinCount++;
-            countCoin.SetText(coinCount.ToString());
+            AcquireMoney();
             Destroy(collision.gameObject);
+
         }
 
         if (collision.gameObject.CompareTag("Food"))
         {
-            currentStamina += 5;
-            staminaBar.SetStamina(currentStamina + 5);
-            if (currentStamina > maxStamina)
-            {
-                currentStamina = maxStamina;
-            }
+            GainStamina();
             Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Upgrade"))
+        {
+            UpgradeScript upScripy = collision.GetComponent<UpgradeScript>();
+            if (upScripy != null)
+            {
+                UpgradeScript.UpgradeType upTypy = upScripy.upType;
+                switch (upTypy)
+                {
+                    case UpgradeScript.UpgradeType.Armor:
+                        ArmorUp();
+                        Destroy(collision.gameObject);
+                        break;
+                    case UpgradeScript.UpgradeType.CoinSack:
+                        GetCoinSack();
+                        Destroy(collision.gameObject);
+                        break;
+                    case UpgradeScript.UpgradeType.Stamina:
+                        if (!hasStamUp)
+                        {
+                            StartCoroutine(StaminaUpgrade());
+                        }
+                        Destroy(collision.gameObject);
+                        break;
+                    default:
+                        Debug.Log("Colidiu e veio pro default");
+                        break;
+                }
+            }
         }
 
     }
@@ -159,7 +191,14 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Spike"))
         {
-            Die();
+            if (!hasArmor)
+            {
+                Die();
+            }
+            else
+            {
+                hasArmor = false;
+            }
         }
 
     }
@@ -177,6 +216,48 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 0f;
         HUD.SetActive(false);
         morte.SetActive(true);
+    }
+
+    public IEnumerator ArmorUp()
+    {
+        hasArmor = true;
+        yield return new WaitForSeconds(10f);
+        hasArmor = false;
+    }
+
+    public void AcquireMoney()
+    {
+        coinCount++;
+        countCoin.SetText(coinCount.ToString());
+    }
+
+    public void GetCoinSack()
+    {
+        coinCount += 5;
+        countCoin.SetText(coinCount.ToString());
+    }
+
+    public void GainStamina()
+    {
+        currentStamina += 5;
+        staminaBar.SetStamina(currentStamina + 5);
+        if (currentStamina > maxStamina)
+        {
+            currentStamina = maxStamina;
+        }
+    }
+
+    public IEnumerator StaminaUpgrade()
+    {
+        hasStamUp = true;
+        maxStamina += 20;
+        staminaBar.SetMaxStamina((float)maxStamina);
+        currentStamina = maxStamina;
+        yield return new WaitForSeconds(20f);
+        maxStamina -= 20;
+        staminaBar.SetMaxStamina((float)maxStamina);
+        currentStamina = maxStamina;
+        hasStamUp = false;
     }
 
 }

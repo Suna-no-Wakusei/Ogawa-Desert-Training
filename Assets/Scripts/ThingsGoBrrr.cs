@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ThingsGoBrrr : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = -0.2f;
+    [SerializeField] private float moveSpeed = 0.2f;
 
     void FixedUpdate()
     {
         if (!GameManager.instance.IsOkToMove) return;
-        transform.position = transform.position + new Vector3(moveSpeed, 0, 0);
+        transform.position = transform.position + new Vector3(-moveSpeed, 0, 0);
     }
 }

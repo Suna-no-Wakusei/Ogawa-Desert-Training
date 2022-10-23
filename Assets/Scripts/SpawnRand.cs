@@ -5,8 +5,14 @@ using UnityEngine;
 public class SpawnRand : MonoBehaviour
 {
     [SerializeField] private GameObject ruin;
+    [SerializeField] private float timer = 5f;
+    private float timeVolta;
     private int rand;
-    private float timer = 5f;
+
+    void Start()
+    {
+        timeVolta = timer;
+    }
 
     void Update()
     {
@@ -18,9 +24,8 @@ public class SpawnRand : MonoBehaviour
             if (rand == 3)
             {
                 Instantiate(ruin, transform.position, transform.rotation);
-                Debug.Log("Mouse");
             }
-            timer = 3f;
+            timer = timeVolta;
         }
     }
 }
