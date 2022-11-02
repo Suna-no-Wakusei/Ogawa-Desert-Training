@@ -16,7 +16,7 @@ public class SpawnRand : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.instance.IsOkToMove) return;
+        if (!GameManager.Instance.IsOkToSpawn) return;
         timer -= Time.deltaTime;
         if (timer <= 0f)
         {

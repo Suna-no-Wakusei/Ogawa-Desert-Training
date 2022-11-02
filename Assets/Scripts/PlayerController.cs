@@ -2,74 +2,66 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private int jumpForce;
-    [SerializeField] private float currentStamina;
-    [SerializeField] private int maxStamina;
-    [SerializeField] private int staminaUpgrades;
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Collider2D colGround;
-    [SerializeField] private Collider2D colTotal;
-    [SerializeField] private StaminaBar staminaBar;
-    [SerializeField] private GameObject HUD;
-    [SerializeField] private GameObject morte;
-    [SerializeField] private TextMeshProUGUI countCoin;
-    [SerializeField] private TextMeshProUGUI countKm;
-    [SerializeField] private TextMeshProUGUI topKm;
-    [SerializeField] private TextMeshProUGUI coinBag;
-    private int coinCount;
-    private float km;
-    private float coyoteTime = 0.2f;
-    private float coyoteTimeCounter;
-    private float jumpBufferTime = 0.2f;
-    private float jumpBufferCounter;
-    private bool isGrounded = false;
-    private Vector3 startPos;
-    private bool fingerDown;
-    private int pixelDistToDetect = 20;
-    private bool hasArmor;
-    private bool hasStamUp;
+    [SerializeField] int jumpForce;
+    [SerializeField] float currentStamina;
+    [SerializeField] Rigidbody2D rb;
+    [SerializeField] Collider2D colGround;
+    [SerializeField] Collider2D colTotal;
+    [SerializeField] StaminaBar staminaBar;
+    [SerializeField] GameObject hUD;
+    [SerializeField] GameObject morte;
+    [SerializeField] GameObject coinCount;
+    [SerializeField] GameObject coinMoment;
+    [SerializeField] GameObject kmMoment;
+    [SerializeField] TextMeshProUGUI countCoin;
+    [SerializeField] TextMeshProUGUI momentCoin;
+    [SerializeField] TextMeshProUGUI countKm;
+    [SerializeField] TextMeshProUGUI coinBag;
+    [SerializeField] PlayableDirector finalCut;
+    [SerializeField] Animator animator;
+    int maxStamina;
+    int cashCount;
+    public float km;
+    float coyoteTime = 0.2f;
+    float coyoteTimeCounter;
+    float jumpBufferTime = 0.2f;
+    float jumpBufferCounter;
+    bool isGrounded = false;
+    Vector3 startPos;
+    bool fingerDown;
+    int pixelDistToDetect = 20;
+    bool hasArmor;
+    bool hasStamUp;
+    float rollCooldown = 0f;
 
     void Start()
     {
-        switch (staminaUpgrades)
-        {
-            case 0:
-                maxStamina = 20;
-                break;
-            case 1:
-                maxStamina = 25;
-                break;
-            case 2:
-                maxStamina = 30;
-                break;
-            case 3:
-                maxStamina = 35;
-                break;
-            case 4:
-                maxStamina = 40;
-                break;
-            case 5:
-                maxStamina = 45;
-                break;
-            case 6:
-                maxStamina = 50;
-                break;
-            default:
-                maxStamina = 20;
-                break;
-        }
+        maxStamina = GameManager.Instance.MaxStamina;
         currentStamina = maxStamina;
-        staminaBar.SetMaxStamina(maxStamina);
+        staminaBar.SetMaxSliderStamina(maxStamina);
+        countCoin.SetText(GameManager.Instance.CoinBag.ToString());
     }
 
     void Update()
     {
-        if (!GameManager.instance.IsOkToMove) return;
-        km += Time.deltaTime * 2;
+        if (!GameManager.Instance.IsOkToMove) return;
+        if (rollCooldown >= 0)
+        {
+            rollCooldown -= Time.deltaTime;
+        }
+        animator.SetBool("Moving", true);
+        animator.SetFloat("VerticalSpeed", rb.velocity.y);
+        km += Time.deltaTime * 2 * GameManager.Instance.SpeedModifier;
+        if (km >= 1000 && GameManager.Instance.IsNotEndless)
+        {
+            StartCoroutine(EndRun());
+        }
         countKm.SetText(Convert.ToInt32(km).ToString());
         currentStamina -= Time.deltaTime;
         staminaBar.SetStamina(currentStamina);
@@ -86,9 +78,9 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter = jumpBufferTime;
         }
-        else if (pleum == 2)
+        else if (pleum == 2 && rollCooldown <= 0)
         {
-            rb.AddForce(-transform.up * jumpForce);
+            StartCoroutine(Rolling());
         }
         else
         {
@@ -128,6 +120,15 @@ public class PlayerController : MonoBehaviour
             }
         }
         return 0;
+    }
+
+    IEnumerator Rolling()
+    {
+        rb.AddForce(-transform.up * jumpForce);
+        rollCooldown = 1f;
+        animator.SetBool("Rolling", true);
+        yield return new WaitForSeconds(0.1f);
+        animator.SetBool("Rolling", false);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -205,17 +206,30 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
-
-        GameManager.instance.CoinBag += coinCount;
-        coinCount = 0;
-        if (km > GameManager.instance.TopKm)
-        {
-            GameManager.instance.TopKm = Convert.ToInt32(km);
-        }
-        GameManager.instance.IsOkToMove = false;
-        Time.timeScale = 0f;
-        HUD.SetActive(false);
+        animator.SetBool("Moving", false);
+        animator.SetTrigger("Cansado");
+        SaveAfterRun();
+        GameManager.Instance.IsOkToSpawn = false;
+        GameManager.Instance.IsOkToMove = false;
+        hUD.SetActive(false);
+        coinMoment.SetActive(false);
+        coinCount.SetActive(true);
+        countCoin.SetText(GameManager.Instance.CoinBag.ToString());//talvez add counting number
+        cashCount = 0;
         morte.SetActive(true);
+    }
+
+    void SaveAfterRun()
+    {
+        GameManager.Instance.CoinBag += cashCount;
+        if (km > GameManager.Instance.TopKm)
+        {//add topEffect
+            GameManager.Instance.TopKm = Convert.ToInt32(km);
+            PlayerPrefs.SetInt("TopKm", GameManager.Instance.TopKm);
+        }
+        PlayerPrefs.SetInt("CoinBag", GameManager.Instance.CoinBag);
+        PlayerPrefs.SetInt("SpeedModifier", GameManager.Instance.SpeedModifier);
+        PlayerPrefs.SetInt("MaxStamina", maxStamina);
     }
 
     public IEnumerator ArmorUp()
@@ -227,14 +241,14 @@ public class PlayerController : MonoBehaviour
 
     public void AcquireMoney()
     {
-        coinCount++;
-        countCoin.SetText(coinCount.ToString());
+        cashCount++;
+        momentCoin.SetText(cashCount.ToString());
     }
 
     public void GetCoinSack()
     {
-        coinCount += 5;
-        countCoin.SetText(coinCount.ToString());
+        cashCount += 5;
+        momentCoin.SetText(cashCount.ToString());
     }
 
     public void GainStamina()
@@ -251,13 +265,23 @@ public class PlayerController : MonoBehaviour
     {
         hasStamUp = true;
         maxStamina += 20;
-        staminaBar.SetMaxStamina((float)maxStamina);
+        staminaBar.SetMaxSliderStamina((float)maxStamina);
         currentStamina = maxStamina;
         yield return new WaitForSeconds(20f);
         maxStamina -= 20;
-        staminaBar.SetMaxStamina((float)maxStamina);
+        staminaBar.SetMaxSliderStamina((float)maxStamina);
         currentStamina = maxStamina;
         hasStamUp = false;
+    }
+
+    private IEnumerator EndRun()
+    {
+        GameManager.Instance.IsOkToSpawn = false;
+        finalCut.Play();
+        SaveAfterRun();
+        cashCount = 0;
+        yield return new WaitForSeconds(15f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }

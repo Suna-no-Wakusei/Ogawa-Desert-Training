@@ -8,7 +8,7 @@ public class StaminaBar : MonoBehaviour
     [SerializeField] private Slider slider;
     [SerializeField] private RectTransform size;
 
-    public void SetMaxStamina(float stamina)
+    public void SetMaxSliderStamina(float stamina)
     {
         slider.maxValue = stamina;
         slider.value = stamina;

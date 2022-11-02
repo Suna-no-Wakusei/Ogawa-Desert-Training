@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartEndless : MonoBehaviour
+public class StartRun : MonoBehaviour
 {
     [SerializeField] private GameObject startMenu;
     [SerializeField] private GameObject HUD;
@@ -12,7 +12,7 @@ public class StartEndless : MonoBehaviour
 
     public void Bora()
     {
-        GameManager.Instance.IsNotEndless = false;
+        GameManager.Instance.IsNotEndless = true;
         startMenu.SetActive(false);
         HUD.SetActive(true);
         CoinCount.SetActive(false);

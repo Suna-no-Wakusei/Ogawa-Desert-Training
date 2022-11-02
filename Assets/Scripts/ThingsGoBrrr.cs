@@ -8,7 +8,7 @@ public class ThingsGoBrrr : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!GameManager.instance.IsOkToMove) return;
+        if (!GameManager.Instance.IsOkToMove) return;
         transform.position = transform.position + new Vector3(-moveSpeed, 0, 0);
     }
 }
