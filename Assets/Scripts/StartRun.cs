@@ -9,11 +9,14 @@ public class StartRun : MonoBehaviour
     [SerializeField] private GameObject KmCount;
     [SerializeField] private GameObject CoinCount;
     [SerializeField] private GameObject CoinMoment;
+    [SerializeField] private PlayerController playerController;
 
     public void Bora()
     {
+        GameManager.Instance.IsOnRun = true;
         GameManager.Instance.IsNotEndless = true;
         startMenu.SetActive(false);
+        playerController.OnRunStart();
         HUD.SetActive(true);
         CoinCount.SetActive(false);
         KmCount.SetActive(true);

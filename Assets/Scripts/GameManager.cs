@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance
     {
-        get 
-        { 
+        get
+        {
             if (instance == null)
             {
                 Debug.LogError("GameManager Null");
@@ -27,18 +27,21 @@ public class GameManager : MonoBehaviour
     {
         instance.TopKm = PlayerPrefs.GetInt("TopKm", 0);
         instance.CoinBag = PlayerPrefs.GetInt("CoinBag", 0);
+        instance.tempoArmor = PlayerPrefs.GetFloat("TempoArmor", 5f);
         instance.SpeedModifier = PlayerPrefs.GetInt("SpeedModifier", 1);
         instance.MaxStamina = PlayerPrefs.GetInt("MaxStamina", 20);
     }
 
     private int topKm;
     private int coinBag;
+    private float tempoArmor = 5f;
     private int speedModifier = 1;
     private int maxStamina = 20;
+    private bool isOnRun = false;
     private bool isNotEndless = false;
     private bool isOkToSpawn = false;
     private bool isOkToMove = false;
-    
+
     public int TopKm
     {
         get { return topKm; }
@@ -56,11 +59,22 @@ public class GameManager : MonoBehaviour
         get { return speedModifier; }
         set { speedModifier = value; }
     }
+    public float TempoArmor
+    {
+        get { return tempoArmor; }
+        set { tempoArmor = value; }
+    }
 
     public int MaxStamina
     {
         get { return maxStamina; }
         set { maxStamina = value; }
+    }
+
+    public bool IsOnRun
+    {
+        get { return isOnRun; }
+        set { isOnRun = value; }
     }
 
     public bool IsNotEndless

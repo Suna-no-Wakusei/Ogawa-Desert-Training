@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class SpawnRand : MonoBehaviour
 {
-    [SerializeField] private GameObject ruin;
-    [SerializeField] private float timer = 5f;
+    [SerializeField] private GameObject[] prefab;
+    [SerializeField] private float timer = 2f;
     private float timeVolta;
-    private int rand;
+    private int randChance;
+    private int randObj;
 
     void Start()
     {
@@ -20,10 +21,11 @@ public class SpawnRand : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0f)
         {
-            rand = Random.Range(0, 4);
-            if (rand == 3)
+            randChance = Random.Range(0, 2);
+            if (randChance == 0)
             {
-                Instantiate(ruin, transform.position, transform.rotation);
+                randObj = Random.Range(0, prefab.Length);
+                Instantiate(prefab[randObj], transform.position, transform.rotation);
             }
             timer = timeVolta;
         }

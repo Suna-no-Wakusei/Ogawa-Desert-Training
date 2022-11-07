@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int jumpForce;
     [SerializeField] float currentStamina;
     [SerializeField] Rigidbody2D rb;
-    [SerializeField] Collider2D colGround;
     [SerializeField] Collider2D colTotal;
     [SerializeField] StaminaBar staminaBar;
     [SerializeField] GameObject hUD;
@@ -42,10 +41,14 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        countCoin.SetText(GameManager.Instance.CoinBag.ToString());
+    }
+
+    public void OnRunStart()
+    {
         maxStamina = GameManager.Instance.MaxStamina;
         currentStamina = maxStamina;
         staminaBar.SetMaxSliderStamina(maxStamina);
-        countCoin.SetText(GameManager.Instance.CoinBag.ToString());
     }
 
     void Update()
@@ -78,7 +81,7 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter = jumpBufferTime;
         }
-        else if (pleum == 2 && rollCooldown <= 0)
+        else if (pleum == 2 && (rollCooldown <= 0 || !isGrounded))
         {
             StartCoroutine(Rolling());
         }
@@ -136,9 +139,8 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Coin"))
         {
-            AcquireMoney();
             Destroy(collision.gameObject);
-
+            AcquireMoney();
         }
 
         if (collision.gameObject.CompareTag("Food"))
@@ -171,12 +173,10 @@ public class PlayerController : MonoBehaviour
                         Destroy(collision.gameObject);
                         break;
                     default:
-                        Debug.Log("Colidiu e veio pro default");
                         break;
                 }
             }
         }
-
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -184,7 +184,16 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Ground"))
         {
-            if (!isGrounded && collision.otherCollider == colGround)
+            jumpForce = 1500;
+            if (!isGrounded)
+            {
+                isGrounded = true;
+            }
+        }
+        if (collision.gameObject.CompareTag("Ceiling"))
+        {
+            jumpForce = 900;
+            if (!isGrounded)
             {
                 isGrounded = true;
             }
@@ -192,13 +201,20 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Spike"))
         {
-            if (!hasArmor)
+            if (gameObject.transform.position.y >= collision.gameObject.transform.position.y + 1f)
             {
-                Die();
+                Destroy(collision.gameObject);
             }
             else
             {
-                hasArmor = false;
+                if (!hasArmor)
+                {
+                    Die();
+                }
+                else
+                {
+                    hasArmor = false;
+                }
             }
         }
 
@@ -206,6 +222,7 @@ public class PlayerController : MonoBehaviour
 
     void Die()
     {
+        GameManager.Instance.IsOnRun = false;
         animator.SetBool("Moving", false);
         animator.SetTrigger("Cansado");
         SaveAfterRun();
@@ -228,6 +245,7 @@ public class PlayerController : MonoBehaviour
             PlayerPrefs.SetInt("TopKm", GameManager.Instance.TopKm);
         }
         PlayerPrefs.SetInt("CoinBag", GameManager.Instance.CoinBag);
+        PlayerPrefs.SetFloat("TempoArmor", GameManager.Instance.TempoArmor);
         PlayerPrefs.SetInt("SpeedModifier", GameManager.Instance.SpeedModifier);
         PlayerPrefs.SetInt("MaxStamina", maxStamina);
     }
@@ -235,7 +253,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator ArmorUp()
     {
         hasArmor = true;
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(PlayerPrefs.GetFloat("TempoArmor", 10f));
         hasArmor = false;
     }
 
@@ -247,8 +265,10 @@ public class PlayerController : MonoBehaviour
 
     public void GetCoinSack()
     {
-        cashCount += 5;
-        momentCoin.SetText(cashCount.ToString());
+        for (int i = 0; i < 5; i++)
+        {
+            AcquireMoney();
+        }
     }
 
     public void GainStamina()
@@ -277,6 +297,8 @@ public class PlayerController : MonoBehaviour
     private IEnumerator EndRun()
     {
         GameManager.Instance.IsOkToSpawn = false;
+        yield return new WaitForSeconds(6f);
+        GameManager.Instance.IsOkToMove = false;
         finalCut.Play();
         SaveAfterRun();
         cashCount = 0;
