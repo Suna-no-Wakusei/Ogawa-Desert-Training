@@ -10,7 +10,7 @@ public class UpgradeMaxStamina : MonoBehaviour
     [SerializeField] TextMeshProUGUI coinBag;
     Color32 comprado = new Color32(100, 100, 100, 255);
 
-void Awake()
+    void Awake()
     {
         switch (GameManager.Instance.MaxStamina)
         {
@@ -21,7 +21,7 @@ void Awake()
                 }
                 upsButtons[0].GetComponentInChildren<TextMeshProUGUI>().color = comprado;
                 break;
-            case 50:
+            case 40:
                 foreach (Image childImage in upsButtons[0].GetComponentsInChildren<Image>())
                 {
                     childImage.color = comprado;
@@ -33,7 +33,7 @@ void Awake()
                 upsButtons[0].GetComponentInChildren<TextMeshProUGUI>().color = comprado;
                 upsButtons[1].GetComponentInChildren<TextMeshProUGUI>().color = comprado;
                 break;
-            case 60:
+            case 50:
                 foreach (Image childImage in upsButtons[0].GetComponentsInChildren<Image>())
                 {
                     childImage.color = comprado;
@@ -54,6 +54,7 @@ void Awake()
                 break;
         }
     }
+
     public void Compra()
     {
         switch (GameManager.Instance.MaxStamina)
@@ -63,7 +64,7 @@ void Awake()
                 {
                     GameManager.Instance.CoinBag -= 200;
                     GameManager.Instance.MaxStamina = 30;
-                    PlayerPrefs.SetFloat("MaxStamina", GameManager.Instance.MaxStamina);
+                    PlayerPrefs.SetInt("MaxStamina", GameManager.Instance.MaxStamina);
                     foreach (Image childImage in upsButtons[0].GetComponentsInChildren<Image>())
                     {
                         childImage.color = comprado;
@@ -76,7 +77,7 @@ void Awake()
                 {
                     GameManager.Instance.CoinBag -= 500;
                     GameManager.Instance.MaxStamina = 40;
-                    PlayerPrefs.SetFloat("MaxStamina", GameManager.Instance.MaxStamina);
+                    PlayerPrefs.SetInt("MaxStamina", GameManager.Instance.MaxStamina);
                     foreach (Image childImage in upsButtons[1].GetComponentsInChildren<Image>())
                     {
                         childImage.color = comprado;
@@ -89,7 +90,7 @@ void Awake()
                 {
                     GameManager.Instance.CoinBag -= 1000;
                     GameManager.Instance.MaxStamina = 50;
-                    PlayerPrefs.SetFloat("MaxStamina", GameManager.Instance.MaxStamina);
+                    PlayerPrefs.SetInt("MaxStamina", GameManager.Instance.MaxStamina);
                     foreach (Image childImage in upsButtons[2].GetComponentsInChildren<Image>())
                     {
                         childImage.color = comprado;

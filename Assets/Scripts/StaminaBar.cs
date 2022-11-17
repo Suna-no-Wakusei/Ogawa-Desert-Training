@@ -12,7 +12,30 @@ public class StaminaBar : MonoBehaviour
     {
         slider.maxValue = stamina;
         slider.value = stamina;
-        size.sizeDelta = new Vector2(stamina*5, 30);
+        switch (stamina)
+        {
+            case 20:
+                size.sizeDelta = new Vector2(Screen.width * 0.01f, 30);
+                break;
+            case 30:
+                size.sizeDelta = new Vector2(Screen.width * 0.03f, 30);
+                break;
+            case 40:
+                size.sizeDelta = new Vector2(Screen.width * 0.05f, 30);
+                break;
+            case 50:
+                size.sizeDelta = new Vector2(Screen.width * 0.07f, 30);
+                break;
+            case 60:
+                size.sizeDelta = new Vector2(Screen.width * 0.1f, 30);
+                break;
+            case 70:
+                size.sizeDelta = new Vector2(Screen.width * 0.12f, 30);
+                break;
+            default:
+                size.sizeDelta = new Vector2(Screen.width * 0.1f, 30);
+                break;
+        }
     }
 
     public void SetStamina(float stamina)

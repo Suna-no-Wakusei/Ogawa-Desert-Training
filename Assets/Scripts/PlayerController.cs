@@ -58,6 +58,10 @@ public class PlayerController : MonoBehaviour
         {
             rollCooldown -= Time.deltaTime;
         }
+        if (transform.position.y >= 8f)
+        {
+            transform.position = new Vector2(transform.position.x, 8f);
+        }
         animator.SetBool("Moving", true);
         animator.SetFloat("VerticalSpeed", rb.velocity.y);
         km += Time.deltaTime * 2 * GameManager.Instance.SpeedModifier;
@@ -158,7 +162,7 @@ public class PlayerController : MonoBehaviour
                 switch (upTypy)
                 {
                     case UpgradeScript.UpgradeType.Armor:
-                        ArmorUp();
+                        StartCoroutine(ArmorUp());
                         Destroy(collision.gameObject);
                         break;
                     case UpgradeScript.UpgradeType.CoinSack:
@@ -203,6 +207,7 @@ public class PlayerController : MonoBehaviour
         {
             if (gameObject.transform.position.y >= collision.gameObject.transform.position.y + 1f)
             {
+                GainStamina();
                 Destroy(collision.gameObject);
             }
             else
@@ -213,6 +218,8 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
+                    collision.collider.enabled = false;
+                    Destroy(collision.gameObject);
                     hasArmor = false;
                 }
             }
@@ -247,13 +254,14 @@ public class PlayerController : MonoBehaviour
         PlayerPrefs.SetInt("CoinBag", GameManager.Instance.CoinBag);
         PlayerPrefs.SetFloat("TempoArmor", GameManager.Instance.TempoArmor);
         PlayerPrefs.SetInt("SpeedModifier", GameManager.Instance.SpeedModifier);
-        PlayerPrefs.SetInt("MaxStamina", maxStamina);
     }
 
     public IEnumerator ArmorUp()
     {
         hasArmor = true;
+        gameObject.GetComponent<SpriteRenderer>().color = new Color32(10, 10, 10, 255);
         yield return new WaitForSeconds(PlayerPrefs.GetFloat("TempoArmor", 10f));
+        gameObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
         hasArmor = false;
     }
 
