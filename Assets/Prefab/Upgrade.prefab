@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2113594480302572898}
   - component: {fileID: 4946555690905801334}
   - component: {fileID: -603483071291523431}
-  - component: {fileID: -2001915655456058159}
+  - component: {fileID: 8494981030181658587}
   - component: {fileID: 175183424755452197}
   m_Layer: 0
   m_Name: Upgrade
@@ -98,15 +98,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2580116162387486552}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 914c82d1de0efd04080b23ea0cf918f8, type: 3}
+  m_Script: {fileID: 11500000, guid: 81fdcf55956beeb489ea6cabf7ca4807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteUpgrades:
-  - {fileID: 21300000, guid: 01dea31b85c0c4344b51d578ba6fe037, type: 3}
-  - {fileID: 21300000, guid: 308ec3a57ba25284ca0ca657a2a01874, type: 3}
-  - {fileID: 21300000, guid: 3d03f1a4463e3854e84df438e034b29f, type: 3}
-  spriteRenderer: {fileID: 7754444383230446424}
-  upType: 0
 --- !u!114 &4946555690905801334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,10 +110,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2580116162387486552}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a025a0a8c09d4e44ba69937fec9ebfe5, type: 3}
+  m_Script: {fileID: 11500000, guid: 4777282d36a770442aec4454323f3666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.2
+  spriteUpgrades:
+  - {fileID: 21300000, guid: 01dea31b85c0c4344b51d578ba6fe037, type: 3}
+  - {fileID: 21300000, guid: 308ec3a57ba25284ca0ca657a2a01874, type: 3}
+  - {fileID: 21300000, guid: 3d03f1a4463e3854e84df438e034b29f, type: 3}
+  spriteRenderer: {fileID: 7754444383230446424}
+  upType: 0
 --- !u!70 &-603483071291523431
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -136,7 +135,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
---- !u!114 &-2001915655456058159
+--- !u!114 &8494981030181658587
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,9 +144,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2580116162387486552}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 518247bb64075434db89e7f6664c1c5b, type: 3}
+  m_Script: {fileID: 11500000, guid: d6e6b2b12b5da254cbd18a60fa82d725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 0.2
 --- !u!114 &175183424755452197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,6 +157,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2580116162387486552}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0da5688da02c58648b66c6d02cad4d10, type: 3}
+  m_Script: {fileID: 11500000, guid: f73f1598aa2b1c145afb148dccb0b7ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

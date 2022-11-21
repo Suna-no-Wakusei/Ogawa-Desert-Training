@@ -117,10 +117,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 267658162733329898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a025a0a8c09d4e44ba69937fec9ebfe5, type: 3}
+  m_Script: {fileID: 11500000, guid: f73f1598aa2b1c145afb148dccb0b7ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.2
 --- !u!58 &8275867947620580750
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -146,6 +145,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 267658162733329898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0da5688da02c58648b66c6d02cad4d10, type: 3}
+  m_Script: {fileID: 11500000, guid: d6e6b2b12b5da254cbd18a60fa82d725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 0.2

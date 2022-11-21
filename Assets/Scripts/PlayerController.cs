@@ -24,6 +24,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] TextMeshProUGUI coinBag;
     [SerializeField] PlayableDirector finalCut;
     [SerializeField] Animator animator;
+    [SerializeField] AudioClip coinPickUpSound;
+    [SerializeField] AudioClip upgradePickUpSound;
+    [SerializeField] AudioClip[] canseiros;
+    [SerializeField] AudioClip[] comida;
+    [SerializeField] AudioClip[] dor;
+    [SerializeField] AudioClip[] pulo;
+    [SerializeField] AudioClip rolamento;
+    [SerializeField] AudioClip lizardDie;
+    [SerializeField] AudioClip areia;
     int maxStamina;
     int cashCount;
     public float km;
@@ -38,6 +47,7 @@ public class PlayerController : MonoBehaviour
     bool hasArmor;
     bool hasStamUp;
     float rollCooldown = 0f;
+    int idFinger;
 
     void Start()
     {
@@ -61,6 +71,10 @@ public class PlayerController : MonoBehaviour
         if (transform.position.y >= 8f)
         {
             transform.position = new Vector2(transform.position.x, 8f);
+        }
+        if (animator.GetBool("Moving") && !animator.GetBool("Rolling") && animator.GetFloat("VerticalSpeed") == 0)
+        {
+
         }
         animator.SetBool("Moving", true);
         animator.SetFloat("VerticalSpeed", rb.velocity.y);
@@ -95,6 +109,8 @@ public class PlayerController : MonoBehaviour
         }
         if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f)
         {
+            int puloRandAudio = UnityEngine.Random.Range(0, pulo.Length);
+            SoundManager.Instance.PlayAudio(pulo[puloRandAudio]);
             rb.AddForce(transform.up * jumpForce);
             isGrounded = false;
             coyoteTimeCounter = 0f;
@@ -102,6 +118,8 @@ public class PlayerController : MonoBehaviour
         }
         if (currentStamina <= 0)
         {
+            int cansarRandAudio = UnityEngine.Random.Range(0, canseiros.Length);
+            SoundManager.Instance.PlayAudio(canseiros[cansarRandAudio]);
             Die();
         }
     }
@@ -111,9 +129,10 @@ public class PlayerController : MonoBehaviour
         if (!fingerDown && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
         {
             startPos = Input.touches[0].position;
+            idFinger = Input.touches[0].fingerId;
             fingerDown = true;
         }
-        if (fingerDown)
+        if (fingerDown && Input.touches[0].fingerId == idFinger)
         {
             if (Input.touches[0].position.y >= startPos.y + pixelDistToDetect)
             {
@@ -131,6 +150,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Rolling()
     {
+        SoundManager.Instance.PlayAudio(rolamento);
         rb.AddForce(-transform.up * jumpForce);
         rollCooldown = 1f;
         animator.SetBool("Rolling", true);
@@ -149,6 +169,28 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Food"))
         {
+            if (collision.GetComponent<SpriteRenderer>().sprite.name.Equals("bread"))
+            {
+                SoundManager.Instance.PlayAudio(comida[1]);
+            }
+            else
+            {
+                bool audioOk = false;
+                int comidaRandAudio = UnityEngine.Random.Range(0, comida.Length);
+                while (!audioOk)
+                {
+                    comidaRandAudio = UnityEngine.Random.Range(0, comida.Length);
+                    if (comidaRandAudio == 1)
+                    {
+                        audioOk = false;
+                    }
+                    else
+                    {
+                        audioOk = true;
+                    }
+                }
+                SoundManager.Instance.PlayAudio(comida[comidaRandAudio]);
+            }
             GainStamina();
             Destroy(collision.gameObject);
         }
@@ -162,6 +204,7 @@ public class PlayerController : MonoBehaviour
                 switch (upTypy)
                 {
                     case UpgradeScript.UpgradeType.Armor:
+                        SoundManager.Instance.PlaySound(upgradePickUpSound);
                         StartCoroutine(ArmorUp());
                         Destroy(collision.gameObject);
                         break;
@@ -172,6 +215,7 @@ public class PlayerController : MonoBehaviour
                     case UpgradeScript.UpgradeType.Stamina:
                         if (!hasStamUp)
                         {
+                            SoundManager.Instance.PlaySound(upgradePickUpSound);
                             StartCoroutine(StaminaUpgrade());
                         }
                         Destroy(collision.gameObject);
@@ -207,6 +251,7 @@ public class PlayerController : MonoBehaviour
         {
             if (gameObject.transform.position.y >= collision.gameObject.transform.position.y + 1f)
             {
+                SoundManager.Instance.PlaySound(lizardDie);
                 GainStamina();
                 Destroy(collision.gameObject);
             }
@@ -214,6 +259,8 @@ public class PlayerController : MonoBehaviour
             {
                 if (!hasArmor)
                 {
+                    int morreRandAudio = UnityEngine.Random.Range(0, dor.Length);
+                    SoundManager.Instance.PlayAudio(dor[morreRandAudio]);
                     Die();
                 }
                 else
@@ -227,8 +274,17 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void FootstepsOnTheSand()
+    {
+        if (jumpForce == 1500)
+        {
+            SoundManager.Instance.PlaySound(areia);
+        }
+    }
+
     void Die()
     {
+        SoundManager.Instance.transform.GetChild(0).GetComponent<AudioSource>().loop = false;
         GameManager.Instance.IsOnRun = false;
         animator.SetBool("Moving", false);
         animator.SetTrigger("Cansado");
@@ -259,9 +315,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator ArmorUp()
     {
         hasArmor = true;
-        gameObject.GetComponent<SpriteRenderer>().color = new Color32(10, 10, 10, 255);
         yield return new WaitForSeconds(PlayerPrefs.GetFloat("TempoArmor", 10f));
-        gameObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
         hasArmor = false;
     }
 
@@ -269,6 +323,7 @@ public class PlayerController : MonoBehaviour
     {
         cashCount++;
         momentCoin.SetText(cashCount.ToString());
+        SoundManager.Instance.PlaySound(coinPickUpSound);
     }
 
     public void GetCoinSack()

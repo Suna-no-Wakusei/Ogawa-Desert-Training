@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3762190911498198257}
   - component: {fileID: 5097644438249966935}
   - component: {fileID: 884272530880456235}
+  - component: {fileID: 3796177727875016941}
   - component: {fileID: -342951616257074178}
   - component: {fileID: 3357951916601437980}
-  - component: {fileID: 3796177727875016941}
   m_Layer: 0
   m_Name: Ruin
   m_TagString: Ceiling
@@ -124,10 +124,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 755946194629012439}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a025a0a8c09d4e44ba69937fec9ebfe5, type: 3}
+  m_Script: {fileID: 11500000, guid: d6e6b2b12b5da254cbd18a60fa82d725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.2
+--- !u!114 &3796177727875016941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755946194629012439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f73f1598aa2b1c145afb148dccb0b7ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-342951616257074178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,9 +149,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 755946194629012439}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0da5688da02c58648b66c6d02cad4d10, type: 3}
+  m_Script: {fileID: 11500000, guid: 98a7f7bc7f65f02479875190d7f0502c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  platEffect: {fileID: 3357951916601437980}
+  col: {fileID: 5097644438249966935}
 --- !u!251 &3357951916601437980
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -159,17 +173,3 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &3796177727875016941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 755946194629012439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66fa1e097259a174fb4c04fed96b4d80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  platEffect: {fileID: 3357951916601437980}
-  col: {fileID: 5097644438249966935}

@@ -117,10 +117,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 854419351444970678}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a025a0a8c09d4e44ba69937fec9ebfe5, type: 3}
+  m_Script: {fileID: 11500000, guid: f73f1598aa2b1c145afb148dccb0b7ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.2
 --- !u!58 &8675129323035511461
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -146,9 +145,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 854419351444970678}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0da5688da02c58648b66c6d02cad4d10, type: 3}
+  m_Script: {fileID: 11500000, guid: d6e6b2b12b5da254cbd18a60fa82d725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 0.2
 --- !u!1 &2492445192348682535
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,10 +266,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2492445192348682535}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a025a0a8c09d4e44ba69937fec9ebfe5, type: 3}
+  m_Script: {fileID: 11500000, guid: f73f1598aa2b1c145afb148dccb0b7ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.2
 --- !u!58 &4399293032214171818
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -295,9 +294,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2492445192348682535}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0da5688da02c58648b66c6d02cad4d10, type: 3}
+  m_Script: {fileID: 11500000, guid: d6e6b2b12b5da254cbd18a60fa82d725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 0.2
 --- !u!1 &4855640574709109990
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,10 +415,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4855640574709109990}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a025a0a8c09d4e44ba69937fec9ebfe5, type: 3}
+  m_Script: {fileID: 11500000, guid: f73f1598aa2b1c145afb148dccb0b7ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.2
 --- !u!58 &6716445051032192540
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -444,9 +443,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4855640574709109990}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0da5688da02c58648b66c6d02cad4d10, type: 3}
+  m_Script: {fileID: 11500000, guid: d6e6b2b12b5da254cbd18a60fa82d725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 0.2
 --- !u!1 &5472757833860667546
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,7 +493,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5472757833860667546}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0da5688da02c58648b66c6d02cad4d10, type: 3}
+  m_Script: {fileID: 11500000, guid: f73f1598aa2b1c145afb148dccb0b7ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8701611504422415536
@@ -613,10 +613,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8701611504422415536}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a025a0a8c09d4e44ba69937fec9ebfe5, type: 3}
+  m_Script: {fileID: 11500000, guid: f73f1598aa2b1c145afb148dccb0b7ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.2
 --- !u!58 &2854167897154296997
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -642,9 +641,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8701611504422415536}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0da5688da02c58648b66c6d02cad4d10, type: 3}
+  m_Script: {fileID: 11500000, guid: d6e6b2b12b5da254cbd18a60fa82d725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 0.2
 --- !u!1 &8946677902372655385
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,10 +762,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8946677902372655385}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a025a0a8c09d4e44ba69937fec9ebfe5, type: 3}
+  m_Script: {fileID: 11500000, guid: f73f1598aa2b1c145afb148dccb0b7ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.2
 --- !u!58 &3194516094889164369
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -791,6 +790,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8946677902372655385}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0da5688da02c58648b66c6d02cad4d10, type: 3}
+  m_Script: {fileID: 11500000, guid: d6e6b2b12b5da254cbd18a60fa82d725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 0.2
