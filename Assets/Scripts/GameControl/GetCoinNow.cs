@@ -6,8 +6,8 @@ using TMPro;
 public class GetCoinNow : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI text;
-    void Awake()
+    void Start()
     {
-        text.text = GameManager.Instance.CoinBag.ToString();
+        text.SetText(GameManager.Instance.CoinBag.ToString());
     }
 }

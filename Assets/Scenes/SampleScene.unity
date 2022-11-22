@@ -2085,7 +2085,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b52c09e9451eeb7429a70b10a71d5b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upsButtons: []
+  upsButtons:
+  - {fileID: 931885475}
+  - {fileID: 710684385}
+  - {fileID: 1754428617}
   coinBag: {fileID: 1356723931}
   clip: {fileID: 8300000, guid: 4fae3d71c3533e2418e3dfc857473491, type: 3}
   holdTime: 0.2
@@ -4773,7 +4776,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b18ee966adf7e484084e4aa812b32adf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upsButtons: []
+  upsButtons:
+  - {fileID: 2132810441}
+  - {fileID: 1529256958}
+  - {fileID: 1696421014}
   coinBag: {fileID: 1356723931}
   clip: {fileID: 8300000, guid: 4fae3d71c3533e2418e3dfc857473491, type: 3}
   holdTime: 0.2
