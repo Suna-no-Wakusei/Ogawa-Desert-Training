@@ -11,9 +11,7 @@ GameObject:
   - component: {fileID: 267658162733329897}
   - component: {fileID: 267658162733329896}
   - component: {fileID: 7396798461238447523}
-  - component: {fileID: -4783747678222733736}
   - component: {fileID: 8275867947620580750}
-  - component: {fileID: -2033038748587162074}
   m_Layer: 0
   m_Name: Moeda
   m_TagString: Coin
@@ -108,18 +106,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-4783747678222733736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 267658162733329898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f73f1598aa2b1c145afb148dccb0b7ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &8275867947620580750
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -136,16 +122,3 @@ CircleCollider2D:
   m_Offset: {x: 0.49999997, y: -0.49999997}
   serializedVersion: 2
   m_Radius: 0.49999997
---- !u!114 &-2033038748587162074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 267658162733329898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6e6b2b12b5da254cbd18a60fa82d725, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0.2

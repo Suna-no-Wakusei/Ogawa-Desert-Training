@@ -21,14 +21,11 @@ public class ChangeSoundSettings : MonoBehaviour
         chldImg = gameObject.transform.GetChild(0).GetComponent<Image>();
         if (PlayerPrefs.GetInt("SoundVolume", 1) == 0)
         {
-            mixer.SetFloat("EffectVolume", lowDb);
-            mixer.SetFloat("AudioVolume", lowDb);
+            soundActive = false;
             chldImg.sprite = off;
         }
         else
         {
-            mixer.SetFloat("EffectVolume", effectDb);
-            mixer.SetFloat("AudioVolume", audioDb);
             chldImg.sprite = on;
         }
     }

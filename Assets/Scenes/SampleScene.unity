@@ -2664,7 +2664,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Para ver os resultados do duro treino do guerreiro Ogawa, compre Doppelmacht
+  m_text: Para ver os resultados do duro treino do guerreiro Ogawa, compre Doppelmate
     em nosso website e descubra isso e muito mais.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f54c0660888ef5d4794ccf8ce890c34f, type: 2}
@@ -4422,8 +4422,9 @@ GameObject:
   - component: {fileID: 714957435}
   - component: {fileID: 714957434}
   - component: {fileID: 714957433}
+  - component: {fileID: 714957436}
   m_Layer: 5
-  m_Name: Connect
+  m_Name: Resume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4493,7 +4494,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 714957434}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 714957436}
+        m_TargetAssemblyTypeName: PauseScript, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &714957434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4532,6 +4545,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 714957431}
   m_CullTransparentMesh: 1
+--- !u!114 &714957436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714957431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b847e156f1278241a53b2e11ff2fe6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ogAnimator: {fileID: 19051070}
+  pauseMenu: {fileID: 87553512}
+  clip: {fileID: 8300000, guid: 2d17daa65b42eb84bb5a49fa80a9b398, type: 3}
 --- !u!1 &717182867
 GameObject:
   m_ObjectHideFlags: 0
@@ -14143,6 +14171,7 @@ MonoBehaviour:
   musicSource: {fileID: 286320338}
   audioSource: {fileID: 1807106178}
   barulhoSource: {fileID: 1747605373}
+  mixer: {fileID: 24100000, guid: f4f065d796300ad48a9cafc6e6ceaf92, type: 2}
 --- !u!4 &1748116217
 Transform:
   m_ObjectHideFlags: 0
@@ -14810,7 +14839,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Connect Account
+  m_text: Resume
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f54c0660888ef5d4794ccf8ce890c34f, type: 2}
   m_sharedMaterial: {fileID: -2339899616350604915, guid: f54c0660888ef5d4794ccf8ce890c34f, type: 2}

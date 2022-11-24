@@ -36,9 +36,9 @@ public class PlayerController : MonoBehaviour
     int maxStamina;
     int cashCount;
     public float km;
-    float coyoteTime = 0.2f;
+    float coyoteTime = 0.1f;
     float coyoteTimeCounter;
-    float jumpBufferTime = 0.2f;
+    float jumpBufferTime = 0.1f;
     float jumpBufferCounter;
     bool isGrounded = false;
     Vector3 startPos;
@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
     bool hasArmor;
     bool hasStamUp;
     float rollCooldown = 0f;
-    int idFinger;
 
     void Start()
     {
@@ -129,10 +128,9 @@ public class PlayerController : MonoBehaviour
         if (!fingerDown && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
         {
             startPos = Input.touches[0].position;
-            idFinger = Input.touches[0].fingerId;
             fingerDown = true;
         }
-        if (fingerDown && Input.touches[0].fingerId == idFinger)
+        if (fingerDown)
         {
             if (Input.touches[0].position.y >= startPos.y + pixelDistToDetect)
             {
@@ -232,19 +230,16 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Ground"))
         {
-            jumpForce = 1500;
             if (!isGrounded)
             {
+                jumpForce = 1500;
                 isGrounded = true;
             }
         }
         if (collision.gameObject.CompareTag("Ceiling"))
         {
             jumpForce = 900;
-            if (!isGrounded)
-            {
-                isGrounded = true;
-            }
+            isGrounded = true;
         }
 
         if (collision.gameObject.CompareTag("Spike"))
@@ -272,6 +267,17 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ceiling"))
+        {
+            if (isGrounded)
+            {
+                isGrounded = false;
+            }
+        }
     }
 
     public void FootstepsOnTheSand()

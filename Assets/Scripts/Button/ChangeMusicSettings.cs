@@ -19,12 +19,11 @@ public class ChangeMusicSettings : MonoBehaviour
         chldImg = gameObject.transform.GetChild(0).GetComponent<Image>();
         if (PlayerPrefs.GetInt("MusicVolume", 1) == 0)
         {
-            mixerMusic.SetFloat("MusicVolume", lowDb);
+            musicActive = false;
             chldImg.sprite = off;
         }
         else
         {
-            mixerMusic.SetFloat("MusicVolume", musicDb);
             chldImg.sprite = on;
         }
     }

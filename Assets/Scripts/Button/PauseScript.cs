@@ -11,6 +11,7 @@ public class PauseScript : MonoBehaviour
 
     public void Pause()
     {
+        isOn = pauseMenu.activeSelf;
         SoundManager.Instance.PlaySound(clip);
         if (GameManager.Instance.IsOnRun)
         {
